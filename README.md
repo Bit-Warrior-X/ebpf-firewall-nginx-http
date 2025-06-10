@@ -169,12 +169,3 @@ unknown or disallowed method), the Nginx module sends the client's IP address to
 
 Contributions are welcome! Please feel free to submit pull requests or open issues on the project's GitHub repository (if applicable).
 
-## License
-
-This project is licensed under the MIT License - see the `LICENSE` file for details (if available).
-
-## Contact
-
-For questions or support, please contact [Your Name/Email/GitHub Profile].
-
-
