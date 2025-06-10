@@ -82,68 +82,68 @@ void print_firewall_status(struct tm * tm_info, int reason, __u32 srcip) {
 #endif
 
     if (reason == EVENT_IP_BLOCK_END) {
-        LOG_N("EVENT_IP_BLOCK_END %s\n", src);
+        LOG_A("EVENT_IP_BLOCK_END %s\n", src);
     } else if (reason == EVENT_TCP_SYN_ATTACK_PROTECION_MODE_START) {
-        LOG_N("EVENT_TCP_SYN_ATTACK_PROTECION_MODE_START\n");
+        LOG_A("EVENT_TCP_SYN_ATTACK_PROTECION_MODE_START\n");
     } else if (reason == EVENT_TCP_SYN_ATTACK_PROTECION_MODE_END) {
-        LOG_N("EVENT_TCP_SYN_ATTACK_PROTECION_MODE_END\n");
+        LOG_A("EVENT_TCP_SYN_ATTACK_PROTECION_MODE_END\n");
     } else if (reason == EVENT_TCP_SYN_ATTACK_BURST_BLOCK) {
-        LOG_N("EVENT_TCP_SYN_ATTACK_BURST_BLOCK %s\n", src);
+        LOG_A("EVENT_TCP_SYN_ATTACK_BURST_BLOCK %s\n", src);
     } else if (reason == EVENT_TCP_SYN_ATTACK_FIXED_BLOCK) {
-        LOG_N("EVENT_TCP_SYN_ATTACK_FIXED_BLOCK %s\n", src);
+        LOG_A("EVENT_TCP_SYN_ATTACK_FIXED_BLOCK %s\n", src);
     }
     
     else if (reason == EVENT_TCP_ACK_ATTACK_PROTECION_MODE_START) {
-        LOG_N("EVENT_TCP_ACK_ATTACK_PROTECION_MODE_START\n");
+        LOG_A("EVENT_TCP_ACK_ATTACK_PROTECION_MODE_START\n");
     } else if (reason == EVENT_TCP_ACK_ATTACK_PROTECION_MODE_END) {
-        LOG_N("EVENT_TCP_ACK_ATTACK_PROTECION_MODE_END\n");
+        LOG_A("EVENT_TCP_ACK_ATTACK_PROTECION_MODE_END\n");
     } else if (reason == EVENT_TCP_ACK_ATTACK_BURST_BLOCK) {
-        LOG_N("EVENT_TCP_ACK_ATTACK_BURST_BLOCK %s\n", src);
+        LOG_A("EVENT_TCP_ACK_ATTACK_BURST_BLOCK %s\n", src);
     } else if (reason == EVENT_TCP_ACK_ATTACK_FIXED_BLOCK) {
-        LOG_N("EVENT_TCP_ACK_ATTACK_FIXED_BLOCK %s\n", src);
+        LOG_A("EVENT_TCP_ACK_ATTACK_FIXED_BLOCK %s\n", src);
     }
 
     else if (reason == EVENT_TCP_RST_ATTACK_PROTECION_MODE_START) {
-        LOG_N("EVENT_TCP_RST_ATTACK_PROTECION_MODE_START\n");
+        LOG_A("EVENT_TCP_RST_ATTACK_PROTECION_MODE_START\n");
     } else if (reason == EVENT_TCP_RST_ATTACK_PROTECION_MODE_END) {
-        LOG_N("EVENT_TCP_RST_ATTACK_PROTECION_MODE_END\n");
+        LOG_A("EVENT_TCP_RST_ATTACK_PROTECION_MODE_END\n");
     } else if (reason == EVENT_TCP_RST_ATTACK_BURST_BLOCK) {
-        LOG_N("EVENT_TCP_RST_ATTACK_BURST_BLOCK %s\n", src);
+        LOG_A("EVENT_TCP_RST_ATTACK_BURST_BLOCK %s\n", src);
     } else if (reason == EVENT_TCP_RST_ATTACK_FIXED_BLOCK) {
-        LOG_N("EVENT_TCP_RST_ATTACK_FIXED_BLOCK %s\n", src);
+        LOG_A("EVENT_TCP_RST_ATTACK_FIXED_BLOCK %s\n", src);
     }
 
     else if (reason == EVENT_ICMP_ATTACK_PROTECION_MODE_START) {
-        LOG_N("EVENT_ICMP_ATTACK_PROTECION_MODE_START\n");
+        LOG_A("EVENT_ICMP_ATTACK_PROTECION_MODE_START\n");
     } else if (reason == EVENT_ICMP_ATTACK_PROTECION_MODE_END) {
-        LOG_N("EVENT_ICMP_ATTACK_PROTECION_MODE_END\n");
+        LOG_A("EVENT_ICMP_ATTACK_PROTECION_MODE_END\n");
     } else if (reason == EVENT_ICMP_ATTACK_BURST_BLOCK) {
-        LOG_N("EVENT_ICMP_ATTACK_BURST_BLOCK %s\n", src);
+        LOG_A("EVENT_ICMP_ATTACK_BURST_BLOCK %s\n", src);
     } else if (reason == EVENT_ICMP_ATTACK_FIXED_BLOCK) {
-        LOG_N("EVENT_ICMP_ATTACK_FIXED_BLOCK %s\n", src);
+        LOG_A("EVENT_ICMP_ATTACK_FIXED_BLOCK %s\n", src);
     }
 
     else if (reason == EVENT_UDP_ATTACK_PROTECION_MODE_START) {
-        LOG_N("EVENT_UDP_ATTACK_PROTECION_MODE_START\n");
+        LOG_A("EVENT_UDP_ATTACK_PROTECION_MODE_START\n");
     } else if (reason == EVENT_UDP_ATTACK_PROTECION_MODE_END) {
-        LOG_N("EVENT_UDP_ATTACK_PROTECION_MODE_END\n");
+        LOG_A("EVENT_UDP_ATTACK_PROTECION_MODE_END\n");
     } else if (reason == EVENT_UDP_ATTACK_BURST_BLOCK) {
-        LOG_N("EVENT_UDP_ATTACK_BURST_BLOCK %s\n", src);
+        LOG_A("EVENT_UDP_ATTACK_BURST_BLOCK %s\n", src);
     } else if (reason == EVENT_UDP_ATTACK_FIXED_BLOCK) {
-        LOG_N("EVENT_UDP_ATTACK_FIXED_BLOCK %s\n", src);
+        LOG_A("EVENT_UDP_ATTACK_FIXED_BLOCK %s\n", src);
     }
 
     else if (reason == EVENT_GRE_ATTACK_PROTECION_MODE_START) {
-        LOG_N("EVENT_GRE_ATTACK_PROTECION_MODE_START\n");
+        LOG_A("EVENT_GRE_ATTACK_PROTECION_MODE_START\n");
     } else if (reason == EVENT_GRE_ATTACK_PROTECION_MODE_END) {
-        LOG_N("EVENT_GRE_ATTACK_PROTECION_MODE_END\n");
+        LOG_A("EVENT_GRE_ATTACK_PROTECION_MODE_END\n");
     } else if (reason == EVENT_GRE_ATTACK_BURST_BLOCK) {
-        LOG_N("EVENT_GRE_ATTACK_BURST_BLOCK %s\n", src);
+        LOG_A("EVENT_GRE_ATTACK_BURST_BLOCK %s\n", src);
     } else if (reason == EVENT_GRE_ATTACK_FIXED_BLOCK) {
-        LOG_N("EVENT_GRE_ATTACK_FIXED_BLOCK %s\n", src);
+        LOG_A("EVENT_GRE_ATTACK_FIXED_BLOCK %s\n", src);
     }
     
     else if (reason == EVENT_IP_FRAG_MIDDLE_BLOCK) {
-        LOG_N("EVENT_IP_FRAG_MIDDLE_BLOCK %s\n", src);
+        LOG_A("EVENT_IP_FRAG_MIDDLE_BLOCK %s\n", src);
     }
 }

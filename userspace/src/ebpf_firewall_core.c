@@ -2,6 +2,7 @@
 #include <ebpf_firewall_log.h>
 #include <ebpf_firewall_unix.h>
 #include <ebpf_firewall_config.h>
+#include <ebpf_firewall_conntrack.h>
 
 #include <arpa/inet.h> 
 #include <netinet/in.h> 
@@ -1044,32 +1045,8 @@ int main(int argc, char **argv) {
         goto cleanup;
     }
 
-    struct nfct_handle *cth;
-    static const int family = AF_INET;
-
-    // Set up conntrack handler
-    cth = nfct_open(CONNTRACK, 0);
-    if (!cth) {
-        perror("nfct_open");
-        goto cleanup;
-    }
-
-    nfct_callback_register(cth, NFCT_T_ALL, network_event_cb, &tcp_established_map_fd);
-    LOG_D("Established connections:\n");
-    nfct_query(cth, NFCT_Q_DUMP, &family);
-    nfct_close(cth);
-
-    cth = nfct_open(CONNTRACK, NFCT_ALL_CT_GROUPS);
-    if (!cth) {
-        perror("nfct_open");
-        goto cleanup;
-    }
-
-    nfct_callback_register(cth, NFCT_T_ALL, network_event_cb, &tcp_established_map_fd);
-
-    pthread_t ct_thr; 
-    if (pthread_create(&ct_thr, NULL, (void *(*)(void *))nfct_catch, cth) != 0) {
-        perror("pthread_create for ct_thr");
+    if (init_conntrack(tcp_established_map_fd) < 0) {
+        LOG_E( "Failed to init conntrack\n");
         goto cleanup;
     }
 
@@ -1105,18 +1082,16 @@ int main(int argc, char **argv) {
             LOG_E( "Error polling ring buffer: %d\n", err);
             break;
         }
-        
     }
     
 cleanup:
-    if (cth) nfct_close(cth);
     if (ringbuf) ring_buffer__free(ringbuf);
     if (fixed_ip_ringbuf) ring_buffer__free(fixed_ip_ringbuf);
     if (obj) bpf_object__close(obj);
     if (attach_id >= 0) bpf_xdp_detach(ifindex, attach_mode, NULL);
     
     close_unix_socket();
-    close_unix_nginx_socket();
+    close_conntrack();
 
     LOG_I("Program is ended\n");
 

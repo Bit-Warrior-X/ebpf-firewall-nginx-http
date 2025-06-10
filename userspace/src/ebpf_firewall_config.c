@@ -189,13 +189,6 @@ int load_config(struct bpf_object *obj) {
                 LOG_I("Loaded config: %s = %s\n", key, nginx_unix_path);
                 continue;
             }
-
-            if (strcmp(key, "dev") == 0) {
-                strncpy(ifname, str_value, IFNAMSIZ);
-                LOG_I("Loaded config: %s = %s\n", key, ifname);
-                continue;
-            }
-
             if (strcmp(key, "attach_mode") == 0) {
                 /*XDP_FLAGS_UPDATE_IF_NOEXIST = (1 << 0)
                 XDP_FLAGS_SKB_MODE = (1 << 1)

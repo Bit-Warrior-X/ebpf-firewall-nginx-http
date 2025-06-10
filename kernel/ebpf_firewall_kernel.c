@@ -358,7 +358,7 @@ int xdp_parse_syn(struct xdp_md *ctx) {
             fixed_evt.over_fixed = 0;
             bpf_ringbuf_output(&fixed_ip_ring_buf_events, &fixed_evt, sizeof(fixed_evt), 0);
 
-            bpf_printk("SYN %pI4 %llu %llu\n", &src_ip, timediff, config->syn_fixed_check_duration);
+            //bpf_printk("SYN %pI4 %llu %llu\n", &src_ip, timediff, config->syn_fixed_check_duration);
 
             fixed_stats->count = 1;
             fixed_stats->last_ts = now;
@@ -667,7 +667,7 @@ int xdp_parse_ack(struct xdp_md *ctx) {
         return XDP_PASS;
     }
 
-    /*check limite detection if the source ip is not contained in tcp_established_map*/
+    /*check limit detection if the source ip is not contained in tcp_established_map*/
     __u64 established_key = tcp->source;
     established_key = ((established_key << 32) | src_ip);
     __u8 * is_established = bpf_map_lookup_elem(&tcp_established_map, &established_key);
