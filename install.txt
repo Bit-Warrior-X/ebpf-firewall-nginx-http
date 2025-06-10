@@ -1,0 +1,92 @@
+sudo apt install libmicrohttpd-dev
+sudo apt cmake
+
+git clone https://github.com/mbana/prometheus-client-c.git
+git switch ubuntu-22-04
+./auto build
+cd prom/build/
+make install
+
+cd promhttp/build
+make install
+
+ldconfig -v
+
+
+wget https://github.com/prometheus/prometheus/releases/download/v2.51.0/prometheus-2.51.0.linux-amd64.tar.gz
+tar -xvf prometheus-*.tar.gz
+cd prometheus-*/
+sudo mv prometheus promtool /usr/local/bin/
+sudo mkdir /etc/prometheus /var/lib/prometheus
+sudo mv prometheus.yml /etc/prometheus/
+sudo mv consoles/ console_libraries/ /etc/prometheus/
+
+vim /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/usr/local/bin/prometheus \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.path=/var/lib/prometheus/ \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+vim /etc/systemd/system/ebpf-firewall.service
+[Unit]
+Description=eBPF Firewall (Userspace)
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/var/backup/xdp
+ExecStart=/var/backup/xdp/ebpf_firewall_userspace
+Restart=on-failure
+RestartSec=5
+Environment="LD_LIBRARY_PATH=/usr/local/lib"
+
+[Install]
+WantedBy=multi-user.target
+
+
+vim /etc/systemd/system/ebpf-firewall-prometheus.service
+[Unit]
+Description=eBPF Firewall Prometheus
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/var/backup/xdp
+ExecStart=/var/backup/xdp/ebpf_firewall_prom
+Restart=on-failure
+RestartSec=5
+Environment="LD_LIBRARY_PATH=/usr/local/lib"
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable prometheus
+sudo systemctl enable ebpf-firewall
+sudo systemctl enable ebpf-firewall-prometheus
+
+sudo systemctl start prometheus
+sudo systemctl start ebpf-firewall
+sudo systemctl start ebpf-firewall-prometheus
+
+sudo systemctl status prometheus
