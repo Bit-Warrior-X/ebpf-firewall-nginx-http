@@ -76,8 +76,17 @@ Environment="LD_LIBRARY_PATH=/usr/local/lib"
 [Install]
 WantedBy=multi-user.target
 
+# Increase kernel connection tracking limits
+echo 300000 > /proc/sys/net/netfilter/nf_conntrack_max
+sysctl -w net.netfilter.nf_conntrack_tcp_timeout_established=5400
 
+# Increase socket buffers
+sysctl -w net.core.rmem_max=4194304
+sysctl -w net.core.rmem_default=2097152
 
+# Protect against SYN floods
+sysctl -w net.ipv4.tcp_max_syn_backlog=2048
+sysctl -w net.ipv4.tcp_syncookies=1
 
 
 sudo systemctl daemon-reload
